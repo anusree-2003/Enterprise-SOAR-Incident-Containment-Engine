@@ -1,10 +1,11 @@
 from fastapi import FastAPI
 from app.models import Alert
 from app.parser import normalize_alert
+from app.responder import recommend_action
 
 app = FastAPI(
     title="Enterprise SOAR Incident Containment Engine",
-    version="1.0"
+    version="1.1"
 )
 
 @app.get("/")
@@ -24,8 +25,10 @@ def health():
 @app.post("/alerts")
 def receive_alert(alert: Alert):
     normalized = normalize_alert(alert)
+    action = recommend_action(alert)
 
     return {
         "message": "Alert received successfully",
-        "normalized_alert": normalized
+        "normalized_alert": normalized,
+        "recommended_action": action
     }
