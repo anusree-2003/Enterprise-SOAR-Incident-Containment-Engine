@@ -1,9 +1,9 @@
 {
-    "alert_id": "ALT104",
-    "timestamp": "2026-07-18T10:45:00Z",
-    "source_ip": "192.168.1.23",
-    "destination_ip": "10.0.0.8",
-    "attack_type": "Ransomware",
-    "severity": "Critical",
+    "alert_id": "ALT105",
+    "timestamp": "2026-07-19T11:00:00Z",
+    "source_ip": "192.168.1.30",
+    "destination_ip": "10.0.0.10",
+    "attack_type": "SQL Injection",
+    "severity": "High",
     "status": "New"
 }
