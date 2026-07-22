@@ -4,7 +4,6 @@
 
 This branch contains my individual contributions to the **Enterprise SOAR Incident Containment Engine** project. My work focuses on building the alert processing pipeline and integrating threat intelligence for security alerts.
 
-## My Contributions
 
 ### Week 1 – SIEM Webhook & Alert Normalization
 
