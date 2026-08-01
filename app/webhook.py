@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from app.models import Alert
 from app.normalizer import normalize_alert
 from app.threat_intel import check_ip_reputation
+from app.playbook import incident_response
 
 router = APIRouter()
 
@@ -16,6 +17,11 @@ def receive_alert(alert: Alert):
     normalized["risk_score"] = ip_info["risk_score"]
     normalized["country"] = ip_info["country"]
 
+    response = incident_response(normalized["risk_score"])
+
+    normalized["recommended_action"] = response["action"]
+    normalized["incident_status"] = response["status"]
+    
     return {
         "status": "Alert Received Successfully",
         "normalized_alert": normalized
