@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Enterprise SOAR Incident Containment Engine</title>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        <i class="fa-solid fa-shield-halved"></i>
+        Enterprise SOAR
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="#" onclick="showSection('dashboard')">Dashboard</a></li>
+        <li><a href="#" onclick="showSection('incidents')">Incidents</a></li>
+        <li><a href="#" onclick="showSection('intel')">Threat Intel</a></li>
+        <li><a href="#" onclick="showSection('playbook')">Playbooks</a></li>
+    </ul>
+
+    <div class="right-menu">
+
+        <span class="status">
+            <i class="fa-solid fa-circle"></i>
+            System Online
+        </span>
+
+        <i class="fa-regular fa-bell notification"></i>
+
+        <div class="admin">
+            <i class="fa-solid fa-user-shield"></i>
+            Admin
+        </div>
+
+    </div>
+
+</nav>
+
+<!-- ================= DASHBOARD ================= -->
+
+<div id="dashboard">
+
+<section class="hero">
+
+    <h1>Enterprise SOAR Incident Containment Engine</h1>
+
+    <p>
+        Automated Security Orchestration, Threat Intelligence,
+        and Incident Response Dashboard.
+    </p>
+
+    <div class="hero-buttons">
+
+    <button class="primary-btn" onclick="runPlaybook()">
+        <i class="fa-solid fa-play"></i>
+        Run Playbook
+    </button>
+
+    <button class="secondary-btn" onclick="viewReports()">
+        <i class="fa-solid fa-chart-line"></i>
+        View Reports
+    </button>
+
+</div>
+
+
+</section>
+
+<section class="cards">
+
+    <div class="card">
+        <div class="icon blue">
+            <i class="fa-solid fa-shield-virus"></i>
+        </div>
+
+        <h2 id="alerts">0</h2>
+        <p>Total Alerts</p>
+    </div>
+
+    <div class="card">
+        <div class="icon red">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+
+        <h2 id="critical">0</h2>
+        <p>Critical Incidents</p>
+    </div>
+
+    <div class="card">
+        <div class="icon orange">
+            <i class="fa-solid fa-bug"></i>
+        </div>
+
+        <h2 id="malicious">0</h2>
+        <p>Malicious IPs</p>
+    </div>
+
+    <div class="card">
+        <div class="icon green">
+            <i class="fa-solid fa-lock"></i>
+        </div>
+
+        <h2 id="blocked">0</h2>
+        <p>Blocked Attacks</p>
+    </div>
+
+</section>
+
+<section class="system-grid">
+
+<div class="system-card">
+
+<h3>
+<i class="fa-solid fa-heart-pulse"></i>
+System Health
+</h3>
+
+<p>API Status</p>
+
+<div class="progress">
+<div class="progress-bar green" style="width:98%"></div>
+</div>
+
+<p>98% Healthy</p>
+
+</div>
+
+<div class="system-card">
+
+<h3>
+<i class="fa-solid fa-network-wired"></i>
+Threat Level
+</h3>
+
+<h1 style="color:#ff4d4d;">HIGH</h1>
+
+<p>Current Risk Score : 95</p>
+
+</div>
+
+<div class="system-card">
+
+<h3>
+<i class="fa-solid fa-clock"></i>
+Live Time
+</h3>
+
+<h1 id="clock"></h1>
+
+</div>
+
+</section>
+
+<section class="security-score">
+
+    <div class="score-card">
+
+        <h2>
+            <i class="fa-solid fa-shield-heart"></i>
+            Overall Security Score
+        </h2>
+
+        <div class="score-circle">
+
+            <h1>95%</h1>
+
+        </div>
+
+        <p>Excellent Protection Level</p>
+
+    </div>
+
+</section>
+
+<section class="incident-section">
+
+    <div class="incident-table">
+
+        <h2>Recent Security Incidents</h2>
+
+        <table>
+
+            <tr>
+                <th>Time</th>
+                <th>Threat</th>
+                <th>Source IP</th>
+                <th>Severity</th>
+                <th>Status</th>
+            </tr>
+
+            <tr>
+                <td>20 Jul 2026</td>
+                <td>Brute Force</td>
+                <td>192.168.1.25</td>
+                <td><span class="critical">Critical</span></td>
+                <td>Blocked</td>
+            </tr>
+
+            <tr>
+                <td>20 Jul 2026</td>
+                <td>Malware</td>
+                <td>10.10.5.12</td>
+                <td><span class="high">High</span></td>
+                <td>Contained</td>
+            </tr>
+
+            <tr>
+                <td>21 Jul 2026</td>
+                <td>SQL Injection</td>
+                <td>172.16.5.8</td>
+                <td><span class="medium">Medium</span></td>
+                <td>Monitoring</td>
+            </tr>
+
+        </table>
+
+    </div>
+    </section>
+
+    <section class="charts">
+
+    <div class="chart-card">
+
+        <h2>Attack Types</h2>
+
+        <canvas id="pieChart"></canvas>
+
+    </div>
+
+    <div class="chart-card">
+
+        <h2>Weekly Attack Trend</h2>
+
+        <canvas id="barChart"></canvas>
+
+    </div>
+
+</section>  
+
+<section class="activity-section">
+
+    <div class="activity-card">
+
+        <h2>
+            <i class="fa-solid fa-bolt"></i>
+            Live Security Events
+        </h2>
+
+        <ul id="activityFeed">
+
+            <li>🟢 System Started Successfully</li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+    </div>
+
+</section>
+
+</div>
+
+<!-- ================= INCIDENTS ================= -->
+
+<div id="incidents" style="display:none;">
+
+<section class="incident-section">
+
+<div class="incident-table">
+
+<h2>Incident Management</h2>
+
+<table>
+
+<tr>
+<th>Incident ID</th>
+<th>Type</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+
+<tr>
+<td>INC-101</td>
+<td>Brute Force</td>
+<td>Blocked</td>
+<td>Closed</td>
+</tr>
+
+<tr>
+<td>INC-102</td>
+<td>Malware</td>
+<td>Contained</td>
+<td>Investigating</td>
+</tr>
+
+<tr>
+<td>INC-103</td>
+<td>SQL Injection</td>
+<td>Monitoring</td>
+<td>Open</td>
+</tr>
+
+</table>
+
+</div>
+
+</section>
+
+</div>
+
+<!-- ================= THREAT INTEL ================= -->
+
+<div id="intel" style="display:none;">
+
+<section class="incident-section">
+
+<div class="incident-table">
+
+<h2>Threat Intelligence</h2>
+
+<table>
+
+<tr>
+<th>Source IP</th>
+<th>Country</th>
+<th>Threat Score</th>
+<th>Reputation</th>
+</tr>
+
+<tr>
+<td>192.168.1.25</td>
+<td>Russia</td>
+<td>95</td>
+<td>Malicious</td>
+</tr>
+
+<tr>
+<td>10.10.5.12</td>
+<td>China</td>
+<td>88</td>
+<td>Suspicious</td>
+</tr>
+
+<tr>
+<td>172.16.5.8</td>
+<td>Germany</td>
+<td>20</td>
+<td>Safe</td>
+</tr>
+
+</table>
+
+</div>
+
+</section>
+
+</div>
+
+<!-- ================= PLAYBOOK ================= -->
+
+<div id="playbook" style="display:none;">
+
+<section class="incident-section">
+
+<div class="incident-table">
+
+<h2>Automated Response Playbooks</h2>
+
+<table>
+
+<tr>
+<th>Threat</th>
+<th>Recommended Action</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>Brute Force</td>
+<td>Block Source IP</td>
+<td>Completed</td>
+</tr>
+
+<tr>
+<td>Malware</td>
+<td>Isolate Endpoint</td>
+<td>Completed</td>
+</tr>
+
+<tr>
+<td>SQL Injection</td>
+<td>Enable WAF Rules</td>
+<td>Pending</td>
+</tr>
+
+</table>
+
+</div>
+
+</section>
+
+</div>
+
+<!-- ================= PLAYBOOK POPUP ================= -->
+
+<div id="playbookModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="success-icon">
+            <i class="fa-solid fa-circle-check"></i>
+        </div>
+
+        <h2>Playbook Executed Successfully</h2>
+
+        <p>The SOAR platform completed the automated response.</p>
+
+        <div class="action-list">
+
+            <p>✅ Source IP Blocked</p>
+            <p>✅ Endpoint Isolated</p>
+            <p>✅ Firewall Rule Added</p>
+            <p>✅ Security Team Notified</p>
+            <p>✅ Incident Logged</p>
+
+        </div>
+
+        <button class="close-btn" onclick="closePlaybook()">
+            Close
+        </button>
+
+    </div>
+
+</div>
+
+<!-- ================= LIVE NOTIFICATIONS ================= -->
+
+<section class="notifications">
+
+    <h2>
+        <i class="fa-solid fa-bell"></i>
+        Live Notifications
+    </h2>
+
+    <div class="notify success">
+        <i class="fa-solid fa-circle-check"></i>
+        Firewall Rule Applied Successfully
+    </div>
+
+    <div class="notify warning">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        Suspicious Login Attempt Detected
+    </div>
+
+    <div class="notify danger">
+        <i class="fa-solid fa-bug"></i>
+        Malware Signature Added to Threat Intelligence
+    </div>
+
+    <div class="notify info">
+        <i class="fa-solid fa-user-shield"></i>
+        Security Team Notified Automatically
+    </div>
+
+</section>
+
+<!-- ================= GLOBAL THREAT MAP ================= -->
+
+<section class="world-map">
+
+    <h2>
+        <i class="fa-solid fa-earth-americas"></i>
+        Global Threat Intelligence
+    </h2>
+
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg"
+         alt="World Map">
+
+    <div class="country-list">
+
+        <div>🇷🇺 Russia - 95 Threat Score</div>
+        <div>🇨🇳 China - 88 Threat Score</div>
+        <div>🇺🇸 USA - 42 Threat Score</div>
+        <div>🇩🇪 Germany - Safe</div>
+
+    </div>
+
+</section>
+
+<footer>
+
+    <h3>Enterprise SOAR Incident Containment Engine</h3>
+
+    <p>
+        Developed using FastAPI • Python • Threat Intelligence • Incident Response • Chart.js
+    </p>
+
+    <p>
+        MCA Cybersecurity Project • 2026
+    </p>
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/static/js/script.js"></script>
+
+</body>
+</html>

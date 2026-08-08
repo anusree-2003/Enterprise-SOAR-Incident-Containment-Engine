@@ -1,4 +1,7 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+
 from app.webhook import router as webhook_router
 
 app = FastAPI(
@@ -7,10 +10,20 @@ app = FastAPI(
     version="1.0.0"
 )
 
-@app.get("/")
-def home():
-    return {
-        "message": "Welcome to the SOAR Incident Containment Engine"
-    }
+# Static files
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
+# Templates
+templates = Jinja2Templates(directory="templates")
+
+# Dashboard
+@app.get("/")
+def home(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="index.html",
+        context={}
+    )
+
+# Webhook API
 app.include_router(webhook_router)
