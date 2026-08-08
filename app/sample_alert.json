@@ -1,0 +1,9 @@
+{
+    "alert_id": "ALT105",
+    "timestamp": "2026-07-19T11:00:00Z",
+    "source_ip": "192.168.1.30",
+    "destination_ip": "10.0.0.10",
+    "attack_type": "SQL Injection",
+    "severity": "High",
+    "status": "New"
+}
