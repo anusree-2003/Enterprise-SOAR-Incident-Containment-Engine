@@ -29,6 +29,29 @@ Build a FastAPI-based SOAR platform that receives simulated SIEM alerts, parses 
 - FastAPI
 - Pydantic
 - Uvicorn
+- HTML
+- CSS
+- JavaScript
+- Git & GitHub
+
+## Project Workflow
+
+```text
+SIEM Alert
+    ↓
+FastAPI Webhook
+    ↓
+Alert Validation & Normalization
+    ↓
+Threat Intelligence Enrichment
+    ↓
+Risk Assessment
+    ↓
+Automated Incident Response Playbook
+    ↓
+Incident Containment
+    ↓
+SOAR Web Interface
 - Git
 - GitHub
 

@@ -1,34 +1,29 @@
-from fastapi import FastAPI
-from app.models import Alert
-from app.parser import normalize_alert
-from app.responder import recommend_action
+from fastapi import FastAPI, Request
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+
+from app.webhook import router as webhook_router
 
 app = FastAPI(
-    title="Enterprise SOAR Incident Containment Engine",
-    version="1.1"
+    title="SOAR Incident Containment Engine",
+    description="Receives and processes security alerts from a SIEM.",
+    version="1.0.0"
 )
 
+# Static files
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# Templates
+templates = Jinja2Templates(directory="templates")
+
+# Dashboard
 @app.get("/")
-def home():
-    return {
-        "message": "Welcome to Enterprise SOAR Incident Containment Engine",
-        "status": "Running"
-    }
+def home(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="index.html",
+        context={}
+    )
 
-@app.get("/health")
-def health():
-    return {
-        "service": "SOAR API",
-        "status": "Healthy"
-    }
-
-@app.post("/alerts")
-def receive_alert(alert: Alert):
-    normalized = normalize_alert(alert)
-    action = recommend_action(alert)
-
-    return {
-        "message": "Alert received successfully",
-        "normalized_alert": normalized,
-        "recommended_action": action
-    }
+# Webhook API
+app.include_router(webhook_router)
