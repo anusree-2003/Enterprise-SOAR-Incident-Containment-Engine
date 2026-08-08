@@ -1,48 +1,29 @@
-# Anjitha Aravind – SOAR Incident Containment Engine
+# Enterprise SOAR Incident Containment Engine
 
-## Overview
+This project is developed as part of the Infotact Advanced Cybersecurity Internship.
 
-This branch contains my individual contributions to the **Enterprise SOAR Incident Containment Engine** project.
+## Objective
 
-My work focuses on developing the security alert processing pipeline, threat intelligence enrichment, automated incident response, and integration of a web interface for security incident monitoring and containment.
+Build a FastAPI-based SOAR platform that receives simulated SIEM alerts, parses them, normalizes security event data, and recommends automated incident response actions based on alert severity.
 
-### Week 1 – SIEM Webhook & Alert Normalization
+## Week 1 Features
 
-- Developed a FastAPI webhook to receive SIEM security alerts.
-- Created Pydantic models for alert validation.
-- Implemented alert normalization.
-- Added sample security alerts for testing.
-- Tested the webhook and alert processing workflow using Swagger UI.
+- FastAPI backend
+- Alert data model using Pydantic
+- Alert parsing and normalization
+- REST API endpoint
+- Health check endpoint
+- Sample SIEM alert
 
-### Week 2 – Threat Intelligence Enrichment
+## Week 2 Features
 
-- Developed a Threat Intelligence module for IP reputation checking.
-- Integrated threat intelligence with the SIEM webhook.
-- Enriched security alerts with:
-  - **Threat Status**
-  - **Risk Score**
-  - **Country**
-- Tested the complete alert enrichment workflow using Swagger UI.
+- Incident response module
+- Severity-based automated response recommendations
+- Integration of the response engine with FastAPI
+- Automated containment actions for Low, Medium, High, and Critical alerts
+- Tested using FastAPI Swagger UI
 
-### Week 3 – Automated Incident Response Playbook
-
-- Implemented an automated incident response playbook.
-- Developed incident response logic for handling security alerts.
-- Integrated the playbook with the existing webhook and alert processing pipeline.
-- Added automated response actions based on the alert and threat information.
-- Tested the incident response workflow with security alerts.
-
-### Week 4 – SOAR Web Interface Integration
-
-- Integrated a web interface with the SOAR incident containment engine.
-- Connected the frontend with the FastAPI backend.
-- Added HTML templates for the web interface.
-- Added static files for frontend styling and functionality.
-- Updated the FastAPI application to support the integrated web interface.
-- Updated project dependencies required for the web application.
-- Tested the integrated SOAR workflow through the web interface.
-
-## Technologies Used
+## Technologies
 
 - Python
 - FastAPI
@@ -71,3 +52,23 @@ Automated Incident Response Playbook
 Incident Containment
     ↓
 SOAR Web Interface
+- Git
+- GitHub
+
+## Run
+
+```bash
+uvicorn app.main:app --reload
+```
+
+Open:
+
+```
+http://127.0.0.1:8000/docs
+```
+
+to test the API.
+
+## Current Functionality
+
+The application receives simulated SIEM alerts through a REST API, validates and normalizes the alert data, and recommends appropriate incident response actions based on the severity level. The API can process Low, Medium, High, and Critical alerts and returns structured JSON responses containing both the normalized alert details and the recommended containment action.
